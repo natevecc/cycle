@@ -23,6 +23,6 @@ angular.module('cycleApp')
             model.draw(context)
           requestAnimationFrame(drawMap)
 
-        requestAnimationFrame(drawMap)   
+        requestAnimationFrame(drawMap)
 
   ])

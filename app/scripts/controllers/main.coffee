@@ -4,6 +4,35 @@ angular.module('cycleApp')
   .controller 'MainCtrl', [
     '$scope'
     ($scope) ->
+      class Entity
+        constructor: (@x, @y, @height, @width, @imageUrl) ->
+          @type = "MJ"
+          @image = new Image()
+          @image.onload = () =>
+            @isLoaded = true
+          @image.src = @imageUrl
+          @isLoaded = false
+          @dx = 0
+          @dy = 0
+        move: (minWidth, minHeight, maxWidth, maxHeight) ->
+          @x += @dx
+          @y += @dy
+          if @x >= maxWidth
+            @dx = @dx * -1
+            @x = maxWidth
+          if @x <= minWidth
+            @dx = @dx * -1
+            @x = minWidth
+          if @y + @height >= maxHeight
+            @dy = @dy * -1
+            @y = maxHeight
+          if @y <= minHeight
+            @dy = @dy * -1
+            @y = minHeight
+        draw: (context) ->
+          if @isLoaded
+            context.drawImage(@image, @x, @y)
+
       class Circle 
         constructor: (@x, @y, @r, @dx = 0, @dy = 0, @color="#000000") ->
           @type="Circle"
@@ -69,6 +98,8 @@ angular.module('cycleApp')
             $scope.models.push(new Circle(10, 10, 5))
           when "Line"
             $scope.models.push(new Line(10, 10, 20, 20))
+          when "MJ"
+            $scope.models.push(new Entity(400, 400, 200, 200, "images/mj1Small.jpg"))
 
       $scope.removeModel = (model) ->
         $scope.models = _($scope.models).without model
