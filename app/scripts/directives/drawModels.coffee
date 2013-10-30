@@ -17,11 +17,12 @@ angular.module('cycleApp')
           context.fillRect(0, 0, +attrs.width, +attrs.height);
 
         drawMap = () ->
-          clearCanvas()
-          for model in scope.$eval(attrs.drawModels)
-            model.move(0, 0, +attrs.width, +attrs.height)
-            model.draw(context)
-          requestAnimationFrame(drawMap)
+          scope.$apply ->
+            clearCanvas()
+            for model in scope.$eval(attrs.drawModels)
+              model.move(0, 0, +attrs.width, +attrs.height)
+              model.draw(context)
+            requestAnimationFrame(drawMap)
 
         requestAnimationFrame(drawMap)
 

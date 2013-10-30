@@ -6,7 +6,6 @@
 	    <button type="button" class="btn btn-primary" ng-model="newModelType" btn-radio="'Line'">Line</button>
 	    <button type="button" class="btn btn-primary" ng-model="newModelType" btn-radio="'MJ'">MJ</button>
 	    <button type="button" class="btn btn-primary" ng-model="newModelType" btn-radio="'Sprite'">Sprite</button>
-	    <button type="button" class="btn btn-primary" ng-model="newModelType" btn-radio="'Sprite2'">Sprite2</button>
 	</div>
 	<div class="btn-group">
 		<button class="btn btn-success" ng-click="addNewModel()">Add</button>
@@ -38,6 +37,22 @@
 			Y: <input class="smallInput" type="number" ng-model="model.y"/>
 			dx: <input class="smallInput" type="number" ng-model="model.dx"/>
 			dy: <input class="smallInput" type="number" ng-model="model.dy"/>
+			<button type="button" class="close" aria-hidden="true" ng-click="removeModel(model)">×</button>
+		</span>
+		<span ng-switch-when="Sprite">
+			X: <input class="smallInput" type="number" ng-model="model.x"/>
+			Y: <input class="smallInput" type="number" ng-model="model.y"/>
+			dx: <input class="smallInput" type="number" ng-model="model.dx"/>
+			dy: <input class="smallInput" type="number" ng-model="model.dy"/>
+			Height: <input class="smallInput" type="number" ng-model="model.height"/>
+			Width: <input class="smallInput" type="number" ng-model="model.width"/>
+			<div>Sprite Options:</div>
+			<div ng-repeat="(direction, value) in model.spriteOptions">
+				<span>{{direction}}: X: <input class="smallInput" type="number" ng-model="value.x"/> Y: <input class="smallInput" type="number" ng-model="value.y"/></span>
+					<div ng-repeat="action in value.action">
+						<span>{{$index}}: X: <input class="smallInput" type="number" ng-model="action.x"/> Y: <input class="smallInput" type="number" ng-model="action.y"/></span>
+					</div>
+			</div>
 			<button type="button" class="close" aria-hidden="true" ng-click="removeModel(model)">×</button>
 		</span>
 	</li>
